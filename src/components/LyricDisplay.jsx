@@ -10,23 +10,23 @@ const LyricDisplay = ({ lyrics, currentTime }) => {
       <div className="h-64 flex flex-col items-center justify-center">
         {activeLine && (
           <div key={activeIndex} className="w-full">
+            <p className="animate-note-entrance text-lg md:text-xl font-sans text-gray-300 italic mb-6">
+              {activeLine.text}
+            </p>
             {activeLine.note && (
-              <p className="animate-note-entrance text-lg md:text-xl font-sans text-gray-300 mb-6 italic">
+              <p
+                className={`
+                  animate-lyric-entrance text-4xl md:text-6xl font-bold text-white
+                  ${
+                    activeLine.isInstrumental
+                      ? 'italic text-gray-300 text-3xl md:text-4xl'
+                      : 'animate-glow'
+                  }
+                `}
+              >
                 {activeLine.note}
               </p>
             )}
-            <p
-              className={`
-                animate-lyric-entrance text-4xl md:text-6xl font-bold text-white
-                ${
-                  activeLine.isInstrumental
-                    ? 'italic text-gray-300 text-3xl md:text-4xl'
-                    : 'animate-glow'
-                }
-              `}
-            >
-              {activeLine.text}
-            </p>
           </div>
         )}
       </div>
