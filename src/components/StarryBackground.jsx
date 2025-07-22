@@ -8,10 +8,10 @@ const StarryBackground = () => {
       top: `${Math.random() * 100}%`,
       width: `${Math.random() * 2 + 1}px`,
       height: `${Math.random() * 2 + 1}px`,
-      animationDelay: `${Math.random() * 4}s`,
-      animationDuration: `${Math.random() * 2 + 3}s`,
+      opacity: Math.random() * 0.6 + 0.2, // Random opacity for a natural, static look
     };
-    stars.push(<div key={i} className="absolute bg-starlight-gold rounded-full animate-twinkle" style={style} />);
+    // Removed 'animate-twinkle' to make the background static
+    stars.push(<div key={i} className="absolute bg-starlight-gold rounded-full" style={style} />);
   }
 
   return <div className="absolute inset-0 z-0">{stars}</div>;
