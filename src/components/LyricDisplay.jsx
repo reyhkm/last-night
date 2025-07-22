@@ -11,7 +11,7 @@ const LyricDisplay = ({ lyrics, currentTime }) => {
         {activeLine && (
           <div key={activeIndex} className="w-full">
             {activeLine.note && (
-              <p className="animate-note-entrance text-lg md:text-xl font-sans text-starlight-gold/80 mb-6 italic">
+              <p className="animate-note-entrance text-lg md:text-xl font-sans text-gray-300 mb-6 italic">
                 {activeLine.note}
               </p>
             )}
