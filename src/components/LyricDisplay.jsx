@@ -16,7 +16,7 @@ const LyricDisplay = ({ lyrics, currentTime }) => {
             {activeLine.note && (
               <p
                 className={`
-                  animate-lyric-entrance text-4xl md:text-6xl font-bold text-white
+                  animate-lyric-entrance text-3xl md:text-5xl font-bold text-white
                   ${
                     activeLine.isInstrumental
                       ? 'italic text-gray-300 text-3xl md:text-4xl'
