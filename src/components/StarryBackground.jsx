@@ -11,9 +11,10 @@ const StarryBackground = () => {
         top: `${Math.random() * 100}%`,
         width: `${Math.random() * 2 + 1}px`,
         height: `${Math.random() * 2 + 1}px`,
-        opacity: Math.random() * 0.6 + 0.2,
+        animationDelay: `${Math.random() * 5}s`,
+        animationDuration: `${Math.random() * 3 + 2}s`,
       };
-      starElements.push(<div key={i} className="absolute bg-starlight-gold rounded-full" style={style} />);
+      starElements.push(<div key={i} className="absolute bg-starlight-gold rounded-full animate-twinkle" style={style} />);
     }
     return starElements;
   }, []); // Empty dependency array ensures this runs only once
