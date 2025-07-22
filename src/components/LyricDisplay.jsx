@@ -21,22 +21,23 @@ const LyricDisplay = ({ lyrics, currentTime }) => {
       <div className="w-full">
         {lyrics.map((line, index) => {
           const isActive = index === activeIndex;
+
+          const inactiveClasses = 'text-2xl md:text-3xl text-gray-400 transition-all duration-1000 ease-out';
+          const activeClasses = 'text-4xl md:text-5xl font-bold text-white animate-glow animate-lyric-focus-in';
+
           return (
             <p
-              key={index}
+              // By changing the key, we force React to re-mount the component when it becomes active,
+              // which re-triggers the animation.
+              key={isActive ? `active-${index}` : index}
               ref={isActive ? activeLyricRef : null}
               className={`
-                transition-all duration-700 ease-in-out
-                ${isActive
-                  ? 'text-4xl md:text-5xl font-bold text-white animate-glow'
-                  : 'text-2xl md:text-3xl text-gray-400'
-                }
+                ${isActive ? activeClasses : inactiveClasses}
                 ${line.isInstrumental ? 'italic text-gray-500' : ''}
               `}
               style={{
                 margin: '2rem 0',
-                opacity: isActive ? 1 : 0.5,
-                transform: isActive ? 'scale(1.05)' : 'scale(1)',
+                opacity: isActive ? 1 : 0.4,
               }}
             >
               {line.text}
