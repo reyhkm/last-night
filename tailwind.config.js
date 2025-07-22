@@ -13,6 +13,7 @@ export default {
       animation: {
         'fade-in': 'fadeIn 1.5s ease-in-out forwards',
         'glow': 'glow 2.5s ease-in-out infinite alternate',
+        'lyric-focus-in': 'lyricFocusIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards',
       },
       keyframes: {
         fadeIn: {
@@ -22,7 +23,11 @@ export default {
         glow: {
           'from': { textShadow: '0 0 5px #fff, 0 0 10px #fff, 0 0 15px #e60073, 0 0 20px #e60073' },
           'to': { textShadow: '0 0 10px #fff, 0 0 15px #ff4da6, 0 0 20px #ff4da6, 0 0 25px #ff4da6' },
-        }
+        },
+        lyricFocusIn: {
+          '0%': { opacity: 0, transform: 'translateY(30px) scale(0.95)' },
+          '100%': { opacity: 1, transform: 'translateY(0) scale(1.05)' },
+        },
       }
     },
   },
