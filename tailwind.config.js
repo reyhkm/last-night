@@ -6,6 +6,11 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        'space-dark': '#0c0a1d',
+        'nebula-purple': '#2c2a5d',
+        'starlight-gold': '#fde8a6',
+      },
       fontFamily: {
         'serif': ['"Playfair Display"', 'serif'],
         'sans': ['"Lato"', 'sans-serif'],
@@ -13,11 +18,9 @@ export default {
       animation: {
         'fade-in': 'fadeIn 1.5s ease-in-out forwards',
         'glow': 'glow 2.5s ease-in-out infinite alternate',
-        'lyric-swoop-in': 'lyricSwoopIn 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards',
-        'lyric-gentle-sway': 'lyricGentleSway 1.5s ease-in-out forwards',
-        'lyric-fade-up': 'lyricFadeUp 1.2s ease-out forwards',
-        'lyric-zoom-in': 'lyricZoomIn 1s ease-in-out forwards',
-        'fall': 'fall 10s linear infinite',
+        'lyric-entrance': 'lyricEntrance 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards',
+        'note-entrance': 'noteEntrance 2s ease-out forwards',
+        'twinkle': 'twinkle 4s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -25,28 +28,21 @@ export default {
           '100%': { opacity: 1, transform: 'translateY(0)' },
         },
         glow: {
-          'from': { textShadow: '0 0 5px #fff, 0 0 10px #fff, 0 0 15px #e60073, 0 0 20px #e60073' },
-          'to': { textShadow: '0 0 10px #fff, 0 0 15px #ff4da6, 0 0 20px #ff4da6, 0 0 25px #ff4da6' },
+          'from': { textShadow: '0 0 6px #fff, 0 0 12px #fde8a6, 0 0 18px #fde8a6' },
+          'to': { textShadow: '0 0 12px #fff, 0 0 18px #ffdd77, 0 0 24px #ffdd77' },
         },
-        lyricSwoopIn: {
-          '0%': { opacity: 0, transform: 'translateY(40px) scale(0.9)' },
-          '100%': { opacity: 1, transform: 'translateY(0) scale(1)' },
+        lyricEntrance: {
+          '0%': { opacity: 0, transform: 'translateY(50px) scale(0.9)', filter: 'blur(5px)' },
+          '100%': { opacity: 1, transform: 'translateY(0) scale(1)', filter: 'blur(0)' },
         },
-        lyricGentleSway: {
-            '0%': { opacity: 0, transform: 'translateX(-50px) rotate(-5deg)' },
-            '100%': { opacity: 1, transform: 'translateX(0) rotate(0deg)' },
+        noteEntrance: {
+          '0%': { opacity: 0, transform: 'translateY(20px)' },
+          '50%': { opacity: 0.8 },
+          '100%': { opacity: 0.8, transform: 'translateY(0)' },
         },
-        lyricFadeUp: {
-            '0%': { opacity: 0, transform: 'translateY(50px)' },
-            '100%': { opacity: 1, transform: 'translateY(0)' },
-        },
-        lyricZoomIn: {
-            '0%': { opacity: 0, transform: 'scale(0.5)' },
-            '100%': { opacity: 1, transform: 'scale(1)' },
-        },
-        fall: {
-          '0%': { transform: 'translateY(-10vh) rotate(0deg)', opacity: 1 },
-          '100%': { transform: 'translateY(110vh) rotate(360deg)', opacity: 0 },
+        twinkle: {
+          '0%, 100%': { opacity: 0.5, transform: 'scale(0.8)' },
+          '50%': { opacity: 1, transform: 'scale(1)' },
         },
       }
     },

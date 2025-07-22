@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { lyrics } from './data/lyrics';
 import LyricDisplay from './components/LyricDisplay';
 import StartOverlay from './components/StartOverlay';
+import StarryBackground from './components/StarryBackground';
 
 function App() {
   const [hasStarted, setHasStarted] = useState(false);
@@ -30,18 +31,16 @@ function App() {
   }, [hasStarted]);
 
   return (
-    <div 
-      className="relative w-full h-screen bg-cover bg-center bg-fixed"
-      style={{ backgroundImage: "url('/background.jpg')" }}
-    >
-      <div className="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm" />
+    <div className="relative w-full h-screen overflow-hidden">
+      <StarryBackground />
+      <div className="absolute inset-0 bg-black bg-opacity-30" />
       
       <audio ref={audioRef} src="/last-night-on-earth.mp3" preload="auto"></audio>
       
       {!hasStarted ? (
         <StartOverlay onStart={handleStart} />
       ) : (
-        <main className="relative z-10 flex items-center justify-center h-full animate-fade-in">
+        <main className="relative z-10 flex items-center justify-center h-full">
           <LyricDisplay lyrics={lyrics} currentTime={currentTime} />
         </main>
       )}

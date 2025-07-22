@@ -3,5 +3,6 @@
 @tailwind utilities;
 
 body {
-  @apply bg-black text-white antialiased;
+  @apply bg-space-dark text-white antialiased;
+  background-image: radial-gradient(circle at top, #2c2a5d, #0c0a1d 70%);
 }
