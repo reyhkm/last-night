@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 import { lyrics } from './data/lyrics';
 import LyricDisplay from './components/LyricDisplay';
 import StartOverlay from './components/StartOverlay';
-import LoveRain from './components/LoveRain';
 
 function App() {
   const [hasStarted, setHasStarted] = useState(false);
@@ -37,8 +36,6 @@ function App() {
     >
       <div className="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm" />
       
-      {hasStarted && <LoveRain />}
-
       <audio ref={audioRef} src="/last-night-on-earth.mp3" preload="auto"></audio>
       
       {!hasStarted ? (
