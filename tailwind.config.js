@@ -20,6 +20,7 @@ export default {
         'glow': 'glow 2.5s ease-in-out infinite alternate',
         'lyric-entrance': 'lyricEntrance 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards',
         'note-entrance': 'noteEntrance 2s ease-out forwards',
+        'twinkle': 'twinkle 4s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -38,6 +39,10 @@ export default {
           '0%': { opacity: 0, transform: 'translateY(20px)' },
           '50%': { opacity: 0.8 },
           '100%': { opacity: 0.8, transform: 'translateY(0)' },
+        },
+        twinkle: {
+          '0%, 100%': { opacity: 0.2 },
+          '50%': { opacity: 1 },
         },
       }
     },
