@@ -7,6 +7,7 @@ import StarryBackground from './components/StarryBackground';
 function App() {
   const [hasStarted, setHasStarted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const [audioDuration, setAudioDuration] = useState(0); // State baru untuk durasi audio
   const audioRef = useRef(null);
 
   const handleStart = () => {
@@ -20,15 +21,35 @@ function App() {
 
   useEffect(() => {
     const audio = audioRef.current;
-    const updateTime = () => setCurrentTime(audio.currentTime);
+
+    const handleLoadedMetadata = () => {
+      setAudioDuration(audio.duration);
+    };
+
+    const updateTime = () => {
+      setCurrentTime(audio.currentTime);
+
+      // Logika fade out
+      const fadeOutDuration = 5; // Durasi fade out dalam detik
+      if (audioDuration > 0 && audio.currentTime > audioDuration - fadeOutDuration) {
+        const remainingTime = audioDuration - audio.currentTime;
+        const newVolume = Math.max(0, remainingTime / fadeOutDuration); // Volume dari 1 ke 0
+        audio.volume = newVolume;
+      } else if (audio.volume !== 1) {
+        // Pastikan volume kembali ke 1 jika tidak dalam zona fade out
+        audio.volume = 1;
+      }
+    };
     
     if (audio) {
+      audio.addEventListener('loadedmetadata', handleLoadedMetadata); // Dengarkan saat metadata dimuat
       audio.addEventListener('timeupdate', updateTime);
       return () => {
+        audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
         audio.removeEventListener('timeupdate', updateTime);
       };
     }
-  }, [hasStarted]);
+  }, [hasStarted, audioDuration]); // Tambahkan audioDuration ke dependency array
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
