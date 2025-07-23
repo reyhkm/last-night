@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 const StarryBackground = () => {
   const starCount = 100; // Jumlah bintang latar belakang acak
   const heartStarCount = 35; // Jumlah bintang untuk bentuk hati
-  const jStarCount = 30; // Jumlah bintang untuk bentuk huruf J
+  const rjStarCount = 45; // Jumlah bintang untuk bentuk huruf R.J
 
   const stars = useMemo(() => {
     const starElements = [];
@@ -47,7 +47,7 @@ const StarryBackground = () => {
     const heartScaleX = 30; // Persentase lebar viewport
     const heartScaleY = 30; // Persentase tinggi viewport
     const heartOffsetX = 50 - heartScaleX / 2; // Pusatkan secara horizontal
-    const heartOffsetY = 10; // Mengatur posisi hati lebih ke atas (sebelumnya 15)
+    const heartOffsetY = 10; // Mengatur posisi hati lebih ke atas
 
     const heartPoints = generateHeartPoints(heartStarCount, heartScaleX, heartScaleY, heartOffsetX, heartOffsetY);
 
@@ -64,52 +64,105 @@ const StarryBackground = () => {
       starElements.push(<div key={`heart-star-${index}`} className="absolute bg-starlight-gold rounded-full animate-twinkle" style={style} />);
     });
 
-    // --- Tambahkan bintang berbentuk huruf j (lowercase 'j') ---
-    const jShapePoints = [];
+    // --- Tambahkan bintang berbentuk huruf R.J ---
+    const rjShapePoints = [];
 
-    // Parameters for j shape position and scale
-    const jScaleX = 20; // Percentage width of viewport for j's bounding box
-    const jScaleY = 30; // Percentage height of viewport for j's bounding box
-    // Position below the heart, roughly centered horizontally
-    const jOffsetX = 50 - jScaleX / 2; // Center horizontally with heart
-    const jOffsetY = heartOffsetY + heartScaleY + 8; // Moved down slightly (from 5 to 8)
+    // Helper functions for generating points
+    const generatePointsOnLine = (p1, p2, count) => {
+        const points = [];
+        for (let i = 0; i < count; i++) {
+            const t = count === 1 ? 0.5 : i / (count - 1); // Handle single point case
+            points.push({ x: p1.x * (1 - t) + p2.x * t, y: p1.y * (1 - t) + p2.y * t });
+        }
+        return points;
+    };
 
-    // Dot of j
-    const dotNumPoints = 1; // One star for the dot
-    jShapePoints.push({ x: 0.5, y: 0.05 }); // Slightly above the stem's start (0.1)
+    const generatePointsOnQuadBezier = (p0, p1, p2, count) => {
+        const points = [];
+        for (let i = 0; i < count; i++) {
+            const t = count === 1 ? 0.5 : i / (count - 1); // Handle single point case
+            const x = (1 - t) * (1 - t) * p0.x + 2 * (1 - t) * t * p1.x + t * t * p2.x;
+            const y = (1 - t) * (1 - t) * p0.y + 2 * (1 - t) * t * p1.y + t * t * p2.y;
+            points.push({ x, y });
+        }
+        return points;
+    };
 
-    // Stem of j (vertical line segment)
-    const stemNumPoints = Math.floor((jStarCount - dotNumPoints) * 0.5); // Remaining stars, 50% for stem
-    for (let i = 0; i < stemNumPoints; i++) {
-      const t = i / (stemNumPoints - 1);
-      // Normalized coordinates within j's own 0-1 bounding box
-      jShapePoints.push({ x: 0.5, y: 0.1 + t * 0.5 }); // From y=0.1 to y=0.6 (shorter stem)
+    // Parameters for R.J group position and scale
+    const rjGroupScaleX = 45; // Percentage width of viewport for R.J's bounding box
+    const rjGroupScaleY = 30; // Percentage height of viewport for R.J's bounding box
+    const rjGroupOffsetX = 50 - rjGroupScaleX / 2; // Center horizontally
+    const rjGroupOffsetY = heartOffsetY + heartScaleY + 8; // Below the heart
+
+    // --- Generate 'R' points ---
+    const rCharRelativeX = 0; // R starts at the beginning of the group's X space
+    const rCharRelativeWidth = 0.4; // R takes 40% of the group's width
+    const rCharRelativeHeight = 1; // R takes full height of the group
+
+    const rPoints = [
+        ...generatePointsOnLine({x:0.1, y:0.1}, {x:0.1, y:0.9}, 6), // Stem
+        ...generatePointsOnQuadBezier({x:0.1, y:0.1}, {x:0.7, y:0.1}, {x:0.7, y:0.5}, 6), // Top curve
+        ...generatePointsOnLine({x:0.3, y:0.5}, {x:0.7, y:0.9}, 6) // Leg
+    ];
+
+    rPoints.forEach(p => {
+        rjShapePoints.push({
+            x: rCharRelativeX + p.x * rCharRelativeWidth,
+            y: p.y * rCharRelativeHeight
+        });
+    });
+
+    // --- Generate '.' point ---
+    const dotCharRelativeX = rCharRelativeX + rCharRelativeWidth + 0.02; // After R, small gap
+    const dotCharRelativeWidth = 0.05;
+    const dotCharRelativeHeight = 0.1; // Dot is small
+    const dotCharRelativeY = 0.7; // Position dot lower
+
+    rjShapePoints.push({
+        x: dotCharRelativeX + 0.5 * dotCharRelativeWidth, // Center of dot
+        y: dotCharRelativeY + 0.5 * dotCharRelativeHeight
+    });
+
+    // --- Generate 'J' points ---
+    const jCharRelativeX = dotCharRelativeX + dotCharRelativeWidth + 0.02; // After dot, small gap
+    const jCharRelativeWidth = 0.4;
+    const jCharRelativeHeight = 1;
+
+    const jPoints = [
+        ...generatePointsOnLine({x:0.1, y:0.1}, {x:0.9, y:0.1}, 6), // Top bar
+        ...generatePointsOnLine({x:0.5, y:0.1}, {x:0.5, y:0.7}, 6), // Stem
+        ...generatePointsOnQuadBezier({x:0.5, y:0.7}, {x:0.7, y:0.9}, {x:0.3, y:0.9}, 6) // Hook
+    ];
+
+    jPoints.forEach(p => {
+        rjShapePoints.push({
+            x: jCharRelativeX + p.x * jCharRelativeWidth,
+            y: p.y * jCharRelativeHeight
+        });
+    });
+
+    // Distribute rjStarCount among the generated points, or add random ones if needed
+    const totalGeneratedPoints = rjShapePoints.length;
+    const randomStarsToAdd = rjStarCount - totalGeneratedPoints;
+
+    for (let i = 0; i < randomStarsToAdd; i++) {
+        rjShapePoints.push({
+            x: Math.random(), // Random within 0-1 of group
+            y: Math.random()
+        });
     }
 
-    // Curve/hook of j (quadratic bezier curve)
-    const hookNumPoints = jStarCount - dotNumPoints - stemNumPoints;
-    const p0_j = { x: 0.5, y: 0.6 }; // Start of hook (bottom of stem)
-    const p1_j = { x: 0.5, y: 0.9 }; // Control point (pulls down)
-    const p2_j = { x: 0.2, y: 0.7 }; // End of hook (curves left and slightly up)
-
-    for (let i = 0; i < hookNumPoints; i++) {
-      const t = i / (hookNumPoints - 1);
-      const x = (1 - t) * (1 - t) * p0_j.x + 2 * (1 - t) * t * p1_j.x + t * t * p2_j.x;
-      const y = (1 - t) * (1 - t) * p0_j.y + 2 * (1 - t) * t * p1_j.y + t * t * p2_j.y;
-      jShapePoints.push({ x, y });
-    }
-
-    // Hasilkan bintang-bintang berbentuk huruf j
-    jShapePoints.forEach((point, index) => {
+    // Hasilkan bintang-bintang berbentuk R.J
+    rjShapePoints.forEach((point, index) => {
       const style = {
-        left: `${point.x * jScaleX + jOffsetX}%`,
-        top: `${point.y * jScaleY + jOffsetY}%`,
-        width: `${Math.random() * 3 + 2}px`, // j stars slightly larger
+        left: `${point.x * rjGroupScaleX + rjGroupOffsetX}%`,
+        top: `${point.y * rjGroupScaleY + rjGroupOffsetY}%`,
+        width: `${Math.random() * 3 + 2}px`, // R.J stars slightly larger
         height: `${Math.random() * 3 + 2}px`,
         animationDelay: `${Math.random() * 4}s`,
         animationDuration: `${Math.random() * 3 + 3}s`,
       };
-      starElements.push(<div key={`j-star-${index}`} className="absolute bg-starlight-gold rounded-full animate-twinkle" style={style} />);
+      starElements.push(<div key={`rj-star-${index}`} className="absolute bg-starlight-gold rounded-full animate-twinkle" style={style} />);
     });
 
     return starElements;
