@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 const StarryBackground = () => {
   const starCount = 100; // Jumlah bintang latar belakang acak
   const heartStarCount = 35; // Jumlah bintang untuk bentuk hati
+  const jStarCount = 30; // Jumlah bintang untuk bentuk huruf J
 
   const stars = useMemo(() => {
     const starElements = [];
@@ -61,6 +62,49 @@ const StarryBackground = () => {
         animationDuration: `${Math.random() * 3 + 3}s`, // Rentang durasi yang berbeda
       };
       starElements.push(<div key={`heart-star-${index}`} className="absolute bg-starlight-gold rounded-full animate-twinkle" style={style} />);
+    });
+
+    // --- Tambahkan bintang berbentuk huruf J ---
+    const jShapePoints = [];
+
+    // Parameters for J shape position and scale
+    const jScaleX = 20; // Percentage width of viewport for J's bounding box
+    const jScaleY = 30; // Percentage height of viewport for J's bounding box
+    const jOffsetX = 75; // Start at 75% from left edge of viewport
+    const jOffsetY = 50 - jScaleY / 2; // Centered vertically
+
+    // Stem of J (vertical line segment)
+    const stemNumPoints = Math.floor(jStarCount * 0.6); // 60% of stars for the stem
+    for (let i = 0; i < stemNumPoints; i++) {
+      const t = i / (stemNumPoints - 1);
+      // Normalized coordinates within J's own 0-1 bounding box
+      jShapePoints.push({ x: 0.5, y: 0.1 + t * 0.6 }); // From y=0.1 to y=0.7
+    }
+
+    // Curve of J (quadratic bezier curve)
+    const curveNumPoints = jStarCount - stemNumPoints;
+    const p0 = { x: 0.5, y: 0.7 }; // Start of curve (bottom of stem)
+    const p1 = { x: 0.3, y: 1.0 }; // Control point (lower than actual bottom to make it dip)
+    const p2 = { x: 0.1, y: 0.7 }; // End of curve
+
+    for (let i = 0; i < curveNumPoints; i++) {
+      const t = i / (curveNumPoints - 1);
+      const x = (1 - t) * (1 - t) * p0.x + 2 * (1 - t) * t * p1.x + t * t * p2.x;
+      const y = (1 - t) * (1 - t) * p0.y + 2 * (1 - t) * t * p1.y + t * t * p2.y;
+      jShapePoints.push({ x, y });
+    }
+
+    // Hasilkan bintang-bintang berbentuk huruf J
+    jShapePoints.forEach((point, index) => {
+      const style = {
+        left: `${point.x * jScaleX + jOffsetX}%`,
+        top: `${point.y * jScaleY + jOffsetY}%`,
+        width: `${Math.random() * 3 + 2}px`, // J stars slightly larger
+        height: `${Math.random() * 3 + 2}px`,
+        animationDelay: `${Math.random() * 4}s`,
+        animationDuration: `${Math.random() * 3 + 3}s`,
+      };
+      starElements.push(<div key={`j-star-${index}`} className="absolute bg-starlight-gold rounded-full animate-twinkle" style={style} />);
     });
 
     return starElements;
