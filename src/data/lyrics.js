@@ -1,6 +1,6 @@
 // Timestamps are in seconds
 export const lyrics = [
-  { start: 0.000, end: 15.889, text: "(Instrumental)", isInstrumental: true, note: "Aku bingung harus mulai dari mana..." },
+  { start: 0.000, end: 15.889, text: "", isInstrumental: true, note: "Aku bingung harus mulai dari mana..." },
   { start: 16.289, end: 20.788, text: "I text the postcards sent to you", note: "Aku coba tulis ini, mungkin agak kaku..." },
   { start: 20.789, end: 24.528, text: "Did it go through?", note: "Kira-kira kamu baca nggak ya?" },
   { start: 24.529, end: 32.128, text: "Sending all my love to you", note: "Semua rasa ini buat kamu, tulus." },
@@ -12,7 +12,7 @@ export const lyrics = [
   { start: 64.319, end: 68.218, text: "I'm made to honor you", note: "...tapi sekarang aku cuma mau ada buat kamu." },
   { start: 68.219, end: 73.218, text: "If I lose everything in the fire", note: "Aku tahu aku sering bikin masalah, bikin semuanya berantakan..." },
   { start: 73.219, end: 76.118, text: "Sending all my love to you", note: "...tapi cintaku buat kamu nggak akan pernah hilang." },
-  { start: 76.119, end: 92.418, text: "(Instrumental)", isInstrumental: true, note: "Coba kita lupain sejenak masalah kita, ya?" },
+  { start: 76.119, end: 92.418, text: "", isInstrumental: true, note: "Coba kita lupain sejenak masalah kita, ya?" },
   { start: 92.419, end: 97.218, text: "With every breath that I am worth", note: "Setiap nafasku, aku sadar betapa berartinya kamu." },
   { start: 97.219, end: 100.318, text: "here on earth", note: "Di sini, di dunia ini." },
   { start: 100.319, end: 108.118, text: "I'm sending all my love to you", note: "Ini aku coba bilang lagi, mungkin caraku salah, tapi..." },
@@ -24,10 +24,10 @@ export const lyrics = [
   { start: 140.119, end: 144.118, text: "I'm made to honor you", note: "Aku janji bakal berusaha jadi lebih baik buatmu." },
   { start: 144.119, end: 148.918, text: "If I lose everything in the fire", note: "Walaupun nanti semua terasa berat dan gelap..." },
   { start: 148.919, end: 152.118, text: "Sending all my love to you", note: "...aku akan tetap di sini, buat kamu." },
-  { start: 152.119, end: 184.218, text: "(Instrumental)", isInstrumental: true, note: "Aku mau kita selamanya. Beneran." },
+  { start: 152.119, end: 184.218, text: "", isInstrumental: true, note: "Aku mau kita selamanya." },
   { start: 184.219, end: 192.118, text: "My beating heart belongs to you", note: "Hatiku utuh buat kamu, nggak ada yang lain." },
   { start: 192.119, end: 200.118, text: "I walked for miles 'til I found you", note: "Setelah semua kebodohanku, aku sadar kamulah duniaku." },
   { start: 200.119, end: 204.118, text: "I'm made to honor you", note: "Aku cuma mau ngejaga kamu." },
   { start: 204.119, end: 209.218, text: "If I lose everything in the fire", note: "Dan kalaupun ini akhir dari segalanya..." },
-  { start: 209.219, end: 215.000, text: "Did I ever make it through?", note: "...semoga kamu tahu, aku tulus mencintaimu." }
+  { start: 209.219, end: 220.000, text: "Did I ever make it through?", note: "...semoga kamu tahu, aku tulus mencintaimu." }
 ];
