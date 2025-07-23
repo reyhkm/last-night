@@ -89,8 +89,8 @@ const StarryBackground = () => {
     // Curve/hook of j (quadratic bezier curve)
     const hookNumPoints = jStarCount - dotNumPoints - stemNumPoints;
     const p0_j = { x: 0.5, y: 0.6 }; // Start of hook (bottom of stem)
-    const p1_j = { x: 0.25, y: 0.98 }; // Control point (pulled further down and left for more prominent curve)
-    const p2_j = { x: 0.02, y: 0.78 }; // End of hook (extended further left and slightly up for more curve)
+    const p1_j = { x: 0.1, y: 0.85 }; // Control point (pulled further left and higher)
+    const p2_j = { x: -0.05, y: 0.65 }; // End of hook (extended further left and higher)
 
     for (let i = 0; i < hookNumPoints; i++) {
       const t = i / (hookNumPoints - 1);
