@@ -47,7 +47,7 @@ const StarryBackground = () => {
     const heartScaleX = 30; // Persentase lebar viewport
     const heartScaleY = 30; // Persentase tinggi viewport
     const heartOffsetX = 50 - heartScaleX / 2; // Pusatkan secara horizontal
-    const heartOffsetY = 5; // Mengatur posisi hati lebih ke atas
+    const heartOffsetY = 10; // Mengatur posisi hati lebih ke atas (sebelumnya 15)
 
     const heartPoints = generateHeartPoints(heartStarCount, heartScaleX, heartScaleY, heartOffsetX, heartOffsetY);
 
@@ -72,31 +72,30 @@ const StarryBackground = () => {
     const jScaleY = 30; // Percentage height of viewport for j's bounding box
     // Position below the heart, roughly centered horizontally
     const jOffsetX = 50 - jScaleX / 2; // Center horizontally with heart
-    const jOffsetY = heartOffsetY + heartScaleY + 15; // Posisi j sedikit lebih ke bawah dari hati
+    const jOffsetY = heartOffsetY + heartScaleY + 8; // Moved down slightly (from 5 to 8)
 
     // Dot of j
-    const dotNumPoints = 1;
-    jShapePoints.push({ x: 0.5, y: 0.05 }); // Dot position relative to j's bounding box
+    const dotNumPoints = 1; // One star for the dot
+    jShapePoints.push({ x: 0.5, y: 0.05 }); // Slightly above the stem's start (0.1)
 
-    // Main body of j (cubic bezier curve for a connected, elegant feel)
-    const bodyNumPoints = jStarCount - dotNumPoints;
-    const p0_body = { x: 0.5, y: 0.15 }; // Start of body (below dot)
-    const p_c1_body = { x: 0.5, y: 0.4 }; // Control point 1: pulls straight down then slight curve
-    const p_c2_body = { x: 0.1, y: 0.8 }; // Control point 2: pulls far left for the loop
-    const p3_body = { x: 0.6, y: 0.7 }; // End of hook, slightly upwards and right
+    // Stem of j (vertical line segment)
+    const stemNumPoints = Math.floor((jStarCount - dotNumPoints) * 0.5); // Remaining stars, 50% for stem
+    for (let i = 0; i < stemNumPoints; i++) {
+      const t = i / (stemNumPoints - 1);
+      // Normalized coordinates within j's own 0-1 bounding box
+      jShapePoints.push({ x: 0.5, y: 0.1 + t * 0.5 }); // From y=0.1 to y=0.6 (shorter stem)
+    }
 
-    for (let i = 0; i < bodyNumPoints; i++) {
-      const t = i / (bodyNumPoints - 1);
-      const x =
-        Math.pow(1 - t, 3) * p0_body.x +
-        3 * Math.pow(1 - t, 2) * t * p_c1_body.x +
-        3 * (1 - t) * Math.pow(t, 2) * p_c2_body.x +
-        Math.pow(t, 3) * p3_body.x;
-      const y =
-        Math.pow(1 - t, 3) * p0_body.y +
-        3 * Math.pow(1 - t, 2) * t * p_c1_body.y +
-        3 * (1 - t) * Math.pow(t, 2) * p_c2_body.y +
-        Math.pow(t, 3) * p3_body.y;
+    // Curve/hook of j (quadratic bezier curve)
+    const hookNumPoints = jStarCount - dotNumPoints - stemNumPoints;
+    const p0_j = { x: 0.5, y: 0.6 }; // Start of hook (bottom of stem)
+    const p1_j = { x: 0.5, y: 0.9 }; // Control point (pulls down)
+    const p2_j = { x: 0.2, y: 0.7 }; // End of hook (curves left and slightly up)
+
+    for (let i = 0; i < hookNumPoints; i++) {
+      const t = i / (hookNumPoints - 1);
+      const x = (1 - t) * (1 - t) * p0_j.x + 2 * (1 - t) * t * p1_j.x + t * t * p2_j.x;
+      const y = (1 - t) * (1 - t) * p0_j.y + 2 * (1 - t) * t * p1_j.y + t * t * p2_j.y;
       jShapePoints.push({ x, y });
     }
 
