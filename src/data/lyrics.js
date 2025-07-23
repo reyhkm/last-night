@@ -1,7 +1,7 @@
 // Timestamps are in seconds
 export const lyrics = [
   { start: 0.000, end: 15.889, text: "", isInstrumental: true, note: "Aku bingung harus mulai dari mana..." },
-  { start: 16.289, end: 20.788, text: "I text the postcards sent to you", note: "Aku coba tulis ini, mungkin agak kaku..." },
+  { start: 16.289, end: 20.788, text: "I text the postcards sent to you", note: "Aku coba tulis ini, mungkin agak jelek..." },
   { start: 20.789, end: 24.528, text: "Did it go through?", note: "Kira-kira kamu baca nggak ya?" },
   { start: 24.529, end: 32.128, text: "Sending all my love to you", note: "Semua rasa ini buat kamu, tulus." },
   { start: 32.129, end: 36.928, text: "You are the moonlight of my life", note: "Maaf kalau aku sering bikin gelap harimu..." },
@@ -29,5 +29,5 @@ export const lyrics = [
   { start: 192.119, end: 200.118, text: "I walked for miles 'til I found you", note: "Setelah semua kebodohanku, aku sadar kamulah duniaku." },
   { start: 200.119, end: 204.118, text: "I'm made to honor you", note: "Aku cuma mau ngejaga kamu." },
   { start: 204.119, end: 209.218, text: "If I lose everything in the fire", note: "Dan kalaupun ini akhir dari segalanya..." },
-  { start: 209.219, end: 220.000, text: "Did I ever make it through?", note: "...semoga kamu tahu, aku tulus mencintaimu." }
+  { start: 209.219, end: 220.000, text: "", note: "...semoga kamu tahu, aku tetep di sini." }
 ];
