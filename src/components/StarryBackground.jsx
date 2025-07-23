@@ -47,7 +47,7 @@ const StarryBackground = () => {
     const heartScaleX = 30; // Persentase lebar viewport
     const heartScaleY = 30; // Persentase tinggi viewport
     const heartOffsetX = 50 - heartScaleX / 2; // Pusatkan secara horizontal
-    const heartOffsetY = 50 - heartScaleY / 2; // Pusatkan secara vertikal
+    const heartOffsetY = 15; // Mengatur posisi hati lebih ke atas (sebelumnya 50 - heartScaleY / 2)
 
     const heartPoints = generateHeartPoints(heartStarCount, heartScaleX, heartScaleY, heartOffsetX, heartOffsetY);
 
@@ -72,7 +72,7 @@ const StarryBackground = () => {
     const jScaleY = 30; // Percentage height of viewport for j's bounding box
     // Position below the heart, roughly centered horizontally
     const jOffsetX = 50 - jScaleX / 2; // Center horizontally with heart
-    const jOffsetY = heartOffsetY + heartScaleY + 5; // 5 units padding below heart
+    const jOffsetY = heartOffsetY + heartScaleY + 5; // 5 units padding below heart, mengikuti posisi hati yang baru
 
     // Stem of j (vertical line segment)
     const stemNumPoints = Math.floor(jStarCount * 0.5); // 50% of stars for the stem, shorter stem
