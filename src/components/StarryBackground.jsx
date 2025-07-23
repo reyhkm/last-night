@@ -72,35 +72,31 @@ const StarryBackground = () => {
     const jScaleY = 30; // Percentage height of viewport for j's bounding box
     // Position below the heart, roughly centered horizontally
     const jOffsetX = 50 - jScaleX / 2; // Center horizontally with heart
-    const jOffsetY = heartOffsetY + heartScaleY + 10; // Posisi j sedikit lebih ke bawah dari hati
+    const jOffsetY = heartOffsetY + heartScaleY + 15; // Posisi j sedikit lebih ke bawah dari hati
 
     // Dot of j
     const dotNumPoints = 1;
     jShapePoints.push({ x: 0.5, y: 0.05 }); // Dot position relative to j's bounding box
 
-    // Stem of j (quadratic bezier curve for a slight handwritten feel)
-    const stemNumPoints = Math.floor((jStarCount - dotNumPoints) * 0.4); // ~40% for stem
-    const p0_stem = { x: 0.5, y: 0.15 }; // Start of stem (below dot)
-    const p_control_stem = { x: 0.45, y: 0.35 }; // Control point, pulls slightly left
-    const p1_stem = { x: 0.5, y: 0.6 }; // End of stem, slightly curved
+    // Main body of j (cubic bezier curve for a connected, elegant feel)
+    const bodyNumPoints = jStarCount - dotNumPoints;
+    const p0_body = { x: 0.5, y: 0.15 }; // Start of body (below dot)
+    const p_c1_body = { x: 0.5, y: 0.4 }; // Control point 1: pulls straight down then slight curve
+    const p_c2_body = { x: 0.1, y: 0.8 }; // Control point 2: pulls far left for the loop
+    const p3_body = { x: 0.6, y: 0.7 }; // End of hook, slightly upwards and right
 
-    for (let i = 0; i < stemNumPoints; i++) {
-      const t = i / (stemNumPoints - 1);
-      const x = (1 - t) * (1 - t) * p0_stem.x + 2 * (1 - t) * t * p_control_stem.x + t * t * p1_stem.x;
-      const y = (1 - t) * (1 - t) * p0_stem.y + 2 * (1 - t) * t * p_control_stem.y + t * t * p1_stem.y;
-      jShapePoints.push({ x, y });
-    }
-
-    // Curve/hook of j (quadratic bezier curve)
-    const hookNumPoints = jStarCount - dotNumPoints - stemNumPoints;
-    const p0_hook = p1_stem; // Start of hook is end of stem
-    const p1_hook = { x: 0.7, y: 0.9 }; // Control point, pulled further right and down for wider curve
-    const p2_hook = { x: 0.2, y: 0.75 }; // End of hook, pulled more left and slightly up
-
-    for (let i = 0; i < hookNumPoints; i++) {
-      const t = i / (hookNumPoints - 1);
-      const x = (1 - t) * (1 - t) * p0_hook.x + 2 * (1 - t) * t * p1_hook.x + t * t * p2_hook.x;
-      const y = (1 - t) * (1 - t) * p0_hook.y + 2 * (1 - t) * t * p1_hook.y + t * t * p2_hook.y;
+    for (let i = 0; i < bodyNumPoints; i++) {
+      const t = i / (bodyNumPoints - 1);
+      const x =
+        Math.pow(1 - t, 3) * p0_body.x +
+        3 * Math.pow(1 - t, 2) * t * p_c1_body.x +
+        3 * (1 - t) * Math.pow(t, 2) * p_c2_body.x +
+        Math.pow(t, 3) * p3_body.x;
+      const y =
+        Math.pow(1 - t, 3) * p0_body.y +
+        3 * Math.pow(1 - t, 2) * t * p_c1_body.y +
+        3 * (1 - t) * Math.pow(t, 2) * p_c2_body.y +
+        Math.pow(t, 3) * p3_body.y;
       jShapePoints.push({ x, y });
     }
 
