@@ -47,7 +47,7 @@ const StarryBackground = () => {
     const heartScaleX = 30; // Persentase lebar viewport
     const heartScaleY = 30; // Persentase tinggi viewport
     const heartOffsetX = 50 - heartScaleX / 2; // Pusatkan secara horizontal
-    const heartOffsetY = 5; // Mengatur posisi hati lebih ke atas (sebelumnya 10)
+    const heartOffsetY = 10; // Mengatur posisi hati lebih ke atas (sebelumnya 10)
 
     const heartPoints = generateHeartPoints(heartStarCount, heartScaleX, heartScaleY, heartOffsetX, heartOffsetY);
 
