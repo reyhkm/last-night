@@ -47,7 +47,7 @@ const StarryBackground = () => {
     const heartScaleX = 30; // Persentase lebar viewport
     const heartScaleY = 30; // Persentase tinggi viewport
     const heartOffsetX = 50 - heartScaleX / 2; // Pusatkan secara horizontal
-    const heartOffsetY = 10; // Mengatur posisi hati lebih ke atas (sebelumnya 15)
+    const heartOffsetY = 5; // Mengatur posisi hati lebih ke atas (sebelumnya 10)
 
     const heartPoints = generateHeartPoints(heartStarCount, heartScaleX, heartScaleY, heartOffsetX, heartOffsetY);
 
@@ -72,7 +72,7 @@ const StarryBackground = () => {
     const jScaleY = 30; // Percentage height of viewport for j's bounding box
     // Position below the heart, roughly centered horizontally
     const jOffsetX = 50 - jScaleX / 2; // Center horizontally with heart
-    const jOffsetY = heartOffsetY + heartScaleY + 18; // Moved down slightly (from 8 to 12)
+    const jOffsetY = heartOffsetY + heartScaleY + 17; // Moved down slightly (from 12 to 15)
 
     // Dot of j
     const dotNumPoints = 1; // One star for the dot
@@ -89,8 +89,8 @@ const StarryBackground = () => {
     // Curve/hook of j (quadratic bezier curve)
     const hookNumPoints = jStarCount - dotNumPoints - stemNumPoints;
     const p0_j = { x: 0.5, y: 0.6 }; // Start of hook (bottom of stem)
-    const p1_j = { x: 0.5, y: 0.9 }; // Control point (pulls down)
-    const p2_j = { x: 0.2, y: 0.7 }; // End of hook (curves left and slightly up)
+    const p1_j = { x: 0.4, y: 0.9 }; // Control point (pulls down and slightly left)
+    const p2_j = { x: 0.1, y: 0.7 }; // End of hook (curves further left and slightly up)
 
     for (let i = 0; i < hookNumPoints; i++) {
       const t = i / (hookNumPoints - 1);
