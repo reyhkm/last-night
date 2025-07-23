@@ -72,7 +72,7 @@ const StarryBackground = () => {
     const jScaleY = 30; // Percentage height of viewport for j's bounding box
     // Position below the heart, roughly centered horizontally
     const jOffsetX = 50 - jScaleX / 2; // Center horizontally with heart
-    const jOffsetY = heartOffsetY + heartScaleY + 12; // Moved down slightly (from 8 to 12)
+    const jOffsetY = heartOffsetY + heartScaleY + 15; // Moved down slightly (from 8 to 12)
 
     // Dot of j
     const dotNumPoints = 1; // One star for the dot
