@@ -47,7 +47,7 @@ const StarryBackground = () => {
     const heartScaleX = 30; // Persentase lebar viewport
     const heartScaleY = 30; // Persentase tinggi viewport
     const heartOffsetX = 50 - heartScaleX / 2; // Pusatkan secara horizontal
-    const heartOffsetY = 10; // Mengatur posisi hati lebih ke atas (sebelumnya 15)
+    const heartOffsetY = 5; // Mengatur posisi hati lebih ke atas
 
     const heartPoints = generateHeartPoints(heartStarCount, heartScaleX, heartScaleY, heartOffsetX, heartOffsetY);
 
@@ -72,30 +72,35 @@ const StarryBackground = () => {
     const jScaleY = 30; // Percentage height of viewport for j's bounding box
     // Position below the heart, roughly centered horizontally
     const jOffsetX = 50 - jScaleX / 2; // Center horizontally with heart
-    const jOffsetY = heartOffsetY + heartScaleY + 8; // Moved down slightly (from 5 to 8)
+    const jOffsetY = heartOffsetY + heartScaleY + 10; // Posisi j sedikit lebih ke bawah dari hati
 
     // Dot of j
-    const dotNumPoints = 1; // One star for the dot
-    jShapePoints.push({ x: 0.5, y: 0.05 }); // Slightly above the stem's start (0.1)
+    const dotNumPoints = 1;
+    jShapePoints.push({ x: 0.5, y: 0.05 }); // Dot position relative to j's bounding box
 
-    // Stem of j (vertical line segment)
-    const stemNumPoints = Math.floor((jStarCount - dotNumPoints) * 0.5); // Remaining stars, 50% for stem
+    // Stem of j (quadratic bezier curve for a slight handwritten feel)
+    const stemNumPoints = Math.floor((jStarCount - dotNumPoints) * 0.4); // ~40% for stem
+    const p0_stem = { x: 0.5, y: 0.15 }; // Start of stem (below dot)
+    const p_control_stem = { x: 0.45, y: 0.35 }; // Control point, pulls slightly left
+    const p1_stem = { x: 0.5, y: 0.6 }; // End of stem, slightly curved
+
     for (let i = 0; i < stemNumPoints; i++) {
       const t = i / (stemNumPoints - 1);
-      // Normalized coordinates within j's own 0-1 bounding box
-      jShapePoints.push({ x: 0.5, y: 0.1 + t * 0.5 }); // From y=0.1 to y=0.6 (shorter stem)
+      const x = (1 - t) * (1 - t) * p0_stem.x + 2 * (1 - t) * t * p_control_stem.x + t * t * p1_stem.x;
+      const y = (1 - t) * (1 - t) * p0_stem.y + 2 * (1 - t) * t * p_control_stem.y + t * t * p1_stem.y;
+      jShapePoints.push({ x, y });
     }
 
     // Curve/hook of j (quadratic bezier curve)
     const hookNumPoints = jStarCount - dotNumPoints - stemNumPoints;
-    const p0_j = { x: 0.5, y: 0.6 }; // Start of hook (bottom of stem)
-    const p1_j = { x: 0.5, y: 0.9 }; // Control point (pulls down)
-    const p2_j = { x: 0.2, y: 0.7 }; // End of hook (curves left and slightly up)
+    const p0_hook = p1_stem; // Start of hook is end of stem
+    const p1_hook = { x: 0.7, y: 0.9 }; // Control point, pulled further right and down for wider curve
+    const p2_hook = { x: 0.2, y: 0.75 }; // End of hook, pulled more left and slightly up
 
     for (let i = 0; i < hookNumPoints; i++) {
       const t = i / (hookNumPoints - 1);
-      const x = (1 - t) * (1 - t) * p0_j.x + 2 * (1 - t) * t * p1_j.x + t * t * p2_j.x;
-      const y = (1 - t) * (1 - t) * p0_j.y + 2 * (1 - t) * t * p1_j.y + t * t * p2_j.y;
+      const x = (1 - t) * (1 - t) * p0_hook.x + 2 * (1 - t) * t * p1_hook.x + t * t * p2_hook.x;
+      const y = (1 - t) * (1 - t) * p0_hook.y + 2 * (1 - t) * t * p1_hook.y + t * t * p2_hook.y;
       jShapePoints.push({ x, y });
     }
 
