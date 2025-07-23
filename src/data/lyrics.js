@@ -2,16 +2,16 @@
 export const lyrics = [
   { start: 0.000, end: 15.889, text: "", isInstrumental: true, note: "Aku bingung harus mulai dari mana..." },
   { start: 16.289, end: 20.788, text: "I text the postcards sent to you", note: "Aku coba tulis ini, mungkin berantakan..." },
-  { start: 20.789, end: 24.528, text: "Did it go through?", note: "Kira-kira kamu baca nggak ya?" },
-  { start: 24.529, end: 32.128, text: "Sending all my love to you", note: "Pertama, aku mau bilang." },
+  { start: 20.789, end: 24.528, text: "Did it go through?", note: "Kira-kira kamu baca ngga ya?" },
+  { start: 24.529, end: 32.128, text: "Sending all my love to you", note: "Pertama, aku mau bilang" },
   { start: 32.129, end: 36.928, text: "You are the moonlight of my life", note: "Maaf kalau aku sering bikin gelap harimu..." },
   { start: 36.929, end: 40.628, text: "every night", note: "...tapi kamu selalu jadi terang buatku." },
   { start: 40.629, end: 48.218, text: "Giving all my love to you", note: "Entah kenapa..." },
   { start: 48.219, end: 56.218, text: "My beating heart belongs to you", note: "...Hatiku ini, selalu nyariin kamu." },
-  { start: 56.219, end: 64.318, text: "I walked for miles 'til I found you", note: "Aku tahu aku jauh dari sempurna, butuh waktu lama buat sadar..." },
-  { start: 64.319, end: 68.218, text: "I'm made to honor you", note: "...tapi sekarang aku cuma mau ada buat kamu." },
-  { start: 68.219, end: 73.218, text: "If I lose everything in the fire", note: "Aku tahu aku sering bikin masalah, bikin semuanya berantakan..." },
-  { start: 73.219, end: 76.118, text: "Sending all my love to you", note: "...tapi cintaku buat kamu nggak akan pernah hilang." },
+  { start: 56.219, end: 64.318, text: "I walked for miles 'til I found you", note: "Aku tau aku jauh dari sempurna." },
+  { start: 64.319, end: 68.218, text: "I'm made to honor you", note: "sekarang aku cuma mau ada buat kamu." },
+  { start: 68.219, end: 73.218, text: "If I lose everything in the fire", note: "Aku tau aku sering bikin masalah, bikin semuanya berantakan..." },
+  { start: 73.219, end: 76.118, text: "Sending all my love to you", note: "...tapi cintaku buat kamu ngga akan pernah hilang." },
   { start: 76.119, end: 92.418, text: "", isInstrumental: true, note: "Coba kita lupain sejenak masalah kita, ya?" },
   { start: 92.419, end: 97.218, text: "With every breath that I am worth", note: "Setiap aku nafas, aku sadar betapa berartinya kamu." },
   { start: 97.219, end: 100.318, text: "here on earth", note: "Di sini, di dunia ini." },
@@ -29,5 +29,5 @@ export const lyrics = [
   { start: 192.119, end: 200.118, text: "I walked for miles 'til I found you", note: "Setelah semua kebodohanku, aku sadar kamulah duniaku." },
   { start: 200.119, end: 204.118, text: "I'm made to honor you", note: "Aku cuma mau ngejaga kamu." },
   { start: 204.119, end: 209.218, text: "If I lose everything in the fire", note: "Dan kalaupun ini akhir dari segalanya..." },
-  { start: 209.219, end: 220.000, text: "", note: "...semoga kamu tahu, aku tetep di sini." }
+  { start: 209.219, end: 220.000, text: "", note: "...semoga kamu tau, aku tetep di sini." }
 ];
