@@ -64,42 +64,43 @@ const StarryBackground = () => {
       starElements.push(<div key={`heart-star-${index}`} className="absolute bg-starlight-gold rounded-full animate-twinkle" style={style} />);
     });
 
-    // --- Tambahkan bintang berbentuk huruf J ---
+    // --- Tambahkan bintang berbentuk huruf j (lowercase 'j') ---
     const jShapePoints = [];
 
-    // Parameters for J shape position and scale
-    const jScaleX = 20; // Percentage width of viewport for J's bounding box
-    const jScaleY = 30; // Percentage height of viewport for J's bounding box
-    const jOffsetX = 75; // Start at 75% from left edge of viewport
-    const jOffsetY = 50 - jScaleY / 2; // Centered vertically
+    // Parameters for j shape position and scale
+    const jScaleX = 20; // Percentage width of viewport for j's bounding box
+    const jScaleY = 30; // Percentage height of viewport for j's bounding box
+    // Position below the heart, roughly centered horizontally
+    const jOffsetX = 50 - jScaleX / 2; // Center horizontally with heart
+    const jOffsetY = heartOffsetY + heartScaleY + 5; // 5 units padding below heart
 
-    // Stem of J (vertical line segment)
-    const stemNumPoints = Math.floor(jStarCount * 0.6); // 60% of stars for the stem
+    // Stem of j (vertical line segment)
+    const stemNumPoints = Math.floor(jStarCount * 0.5); // 50% of stars for the stem, shorter stem
     for (let i = 0; i < stemNumPoints; i++) {
       const t = i / (stemNumPoints - 1);
-      // Normalized coordinates within J's own 0-1 bounding box
-      jShapePoints.push({ x: 0.5, y: 0.1 + t * 0.6 }); // From y=0.1 to y=0.7
+      // Normalized coordinates within j's own 0-1 bounding box
+      jShapePoints.push({ x: 0.5, y: 0.1 + t * 0.5 }); // From y=0.1 to y=0.6 (shorter stem)
     }
 
-    // Curve of J (quadratic bezier curve)
-    const curveNumPoints = jStarCount - stemNumPoints;
-    const p0 = { x: 0.5, y: 0.7 }; // Start of curve (bottom of stem)
-    const p1 = { x: 0.3, y: 1.0 }; // Control point (lower than actual bottom to make it dip)
-    const p2 = { x: 0.1, y: 0.7 }; // End of curve
+    // Curve/hook of j (quadratic bezier curve)
+    const hookNumPoints = jStarCount - stemNumPoints;
+    const p0_j = { x: 0.5, y: 0.6 }; // Start of hook (bottom of stem)
+    const p1_j = { x: 0.5, y: 0.9 }; // Control point (pulls down)
+    const p2_j = { x: 0.2, y: 0.7 }; // End of hook (curves left and slightly up)
 
-    for (let i = 0; i < curveNumPoints; i++) {
-      const t = i / (curveNumPoints - 1);
-      const x = (1 - t) * (1 - t) * p0.x + 2 * (1 - t) * t * p1.x + t * t * p2.x;
-      const y = (1 - t) * (1 - t) * p0.y + 2 * (1 - t) * t * p1.y + t * t * p2.y;
+    for (let i = 0; i < hookNumPoints; i++) {
+      const t = i / (hookNumPoints - 1);
+      const x = (1 - t) * (1 - t) * p0_j.x + 2 * (1 - t) * t * p1_j.x + t * t * p2_j.x;
+      const y = (1 - t) * (1 - t) * p0_j.y + 2 * (1 - t) * t * p1_j.y + t * t * p2_j.y;
       jShapePoints.push({ x, y });
     }
 
-    // Hasilkan bintang-bintang berbentuk huruf J
+    // Hasilkan bintang-bintang berbentuk huruf j
     jShapePoints.forEach((point, index) => {
       const style = {
         left: `${point.x * jScaleX + jOffsetX}%`,
         top: `${point.y * jScaleY + jOffsetY}%`,
-        width: `${Math.random() * 3 + 2}px`, // J stars slightly larger
+        width: `${Math.random() * 3 + 2}px`, // j stars slightly larger
         height: `${Math.random() * 3 + 2}px`,
         animationDelay: `${Math.random() * 4}s`,
         animationDuration: `${Math.random() * 3 + 3}s`,
