@@ -35,6 +35,8 @@ Setelah dependensi terinstal, Anda dapat memulai server pengembangan:
 ```bash
 npm run dev
 ```
+
+hhe
 Ini akan membuka situs web di browser default Anda, biasanya di `http://localhost:5173`.
 
 ## Teknologi
